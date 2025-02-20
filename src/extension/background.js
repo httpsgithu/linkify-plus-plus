@@ -1,4 +1,5 @@
-/* eslint-env webextensions */
+import browser from "webextension-polyfill"
+
 let domain = "";
 const ports = new Set;
 
@@ -17,6 +18,7 @@ browser.browserAction.onClicked.addListener(tab => {
   for (const port of ports) {
     port.postMessage({method: "domainChange", domain});
   }
+  // FIXME: https://bugzilla.mozilla.org/show_bug.cgi?id=1949504
   browser.runtime.openOptionsPage();
 });
 
